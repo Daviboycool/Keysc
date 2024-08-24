@@ -1,66 +1,39 @@
--- Criação do ScreenGui
+-- Variáveis de configuração
+local notificationTime = 5 -- Tempo em segundos que a notificação será exibida
+local scriptURL = 'https://raw.githubusercontent.com/Daviboycool/Scripthub/main/.github/Scriptcoolbyfadavid/Keynolol.lua'
+
+-- Criar a GUI
 local screenGui = Instance.new("ScreenGui")
-screenGui.Name = "NotificationGUI"
-screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+screenGui.Name = "NotificationGui"
+screenGui.Parent = game.Players.LocalPlayer.PlayerGui
 
--- Função para criar uma notificação
-local function createNotification(iconId, message)
-    -- Criação do Frame da notificação
-    local notificationFrame = Instance.new("Frame")
-    notificationFrame.Name = "NotificationFrame"
-    notificationFrame.Size = UDim2.new(0, 300, 0, 100)
-    notificationFrame.Position = UDim2.new(1, -310, 0.1, 0) -- Começa fora da tela à direita
-    notificationFrame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-    notificationFrame.BorderSizePixel = 0
-    notificationFrame.Parent = screenGui
-    
-    -- Adiciona bordas arredondadas ao frame
-    local uiCorner = Instance.new("UICorner")
-    uiCorner.CornerRadius = UDim.new(0, 10)
-    uiCorner.Parent = notificationFrame
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0.3, 0, 0.1, 0)
+frame.Position = UDim2.new(0.35, 0, 0.45, 0)
+frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+frame.BackgroundTransparency = 0.5
+frame.BorderSizePixel = 0
+frame.Parent = screenGui
 
-    -- Criação do ícone
-    local icon = Instance.new("ImageLabel")
-    icon.Name = "Icon"
-    icon.Size = UDim2.new(0, 50, 0, 50)
-    icon.Position = UDim2.new(0, 10, 0.5, -25)
-    icon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    icon.BorderSizePixel = 0
-    icon.Image = iconId
-    icon.Parent = notificationFrame
+local textLabel = Instance.new("TextLabel")
+textLabel.Size = UDim2.new(1, 0, 1, 0)
+textLabel.Position = UDim2.new(0, 0, 0, 0)
+textLabel.BackgroundTransparency = 1
+textLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+textLabel.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+textLabel.TextStrokeTransparency = 0.5
+textLabel.TextSize = 24
+textLabel.Text = "executando script"
+textLabel.Parent = frame
 
-    -- Criação do texto
-    local textLabel = Instance.new("TextLabel")
-    textLabel.Name = "TextLabel"
-    textLabel.Size = UDim2.new(1, -70, 1, 0)
-    textLabel.Position = UDim2.new(0, 70, 0, 0)
-    textLabel.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-    textLabel.BorderSizePixel = 0
-    textLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-    textLabel.Text = message
-    textLabel.TextScaled = true
-    textLabel.Font = Enum.Font.Gotham
-    textLabel.TextSize = 20
-    textLabel.Parent = notificationFrame
+-- Exibir a notificação
+frame.Visible = true
 
-    -- Animação da notificação
-    local tweenService = game:GetService("TweenService")
-    local goal = {Position = UDim2.new(1, 0, 0.1, 0)} -- Mover para fora da tela
-    
-    local tweenInfo = TweenInfo.new(10, Enum.EasingStyle.Linear, Enum.EasingDirection.In)
-    local tween = tweenService:Create(notificationFrame, tweenInfo, goal)
+-- Esperar o tempo da notificação
+wait(notificationTime)
 
-    -- Começa a animação após a criação
-    tween:Play()
+-- Ocultar a notificação
+frame.Visible = false
 
-    -- Destroi a notificação após o fim da animação
-    tween.Completed:Connect(function()
-        notificationFrame:Destroy()
-            loadstring(game:HttpGet(('https://raw.githubusercontent.com/Daviboycool/Scripthub/main/.github/Scriptcoolbyfadavid/Keynolol.lua')))()
-    end)
-end
-
--- Exemplo de uso
-createNotification("rbxassetid://5578470925", "key correct ")
-
-
+-- Executar o script externo após o tempo de espera
+loadstring(game:HttpGet(scriptURL))()

